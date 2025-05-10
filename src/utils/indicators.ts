@@ -31,7 +31,7 @@ export function rsi(data: number[], period = 14): number[] {
 export function macd(data: number[], short = 12, long = 26, signal = 9) {
   const ema = (arr: number[], period: number) => {
     const k = 2 / (period + 1);
-    let emaArr: number[] = [];
+    const emaArr: number[] = [];
     arr.forEach((price, i) => {
       if (i === 0) emaArr.push(price);
       else emaArr.push(price * k + emaArr[i - 1] * (1 - k));
