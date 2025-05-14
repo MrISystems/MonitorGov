@@ -14,8 +14,9 @@ import {
   SelectValue,
 } from "./ui/select";
 import { LineChart, BarChart, PieChart } from "./ui/charts";
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import ResumoDashboard from './ResumoDashboard';
 
 interface ProcessoData {
   id: string;
@@ -35,19 +36,20 @@ interface ProcessoData {
 export default function RelatoriosDashboard() {
   const [periodo, setPeriodo] = useState('abril');
   const [dadosProcessos, setDadosProcessos] = useState<ProcessoData[]>([]);
+  const [dadosContratos, setDadosContratos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     carregarDados();
-  }, [periodo]);
+  }, []);
 
   const carregarDados = async () => {
     setLoading(true);
     try {
-      // TODO: Implementar chamada à API para buscar dados
       const response = await fetch('/api/relatorios/processos');
       const data = await response.json();
-      setDadosProcessos(data);
+      setDadosProcessos(data.processos || []);
+      setDadosContratos(data.contratos || []);
     } catch (error) {
       console.error('Erro ao carregar dados:', error);
     } finally {
@@ -89,8 +91,46 @@ export default function RelatoriosDashboard() {
 
   const metricas = calcularMetricas();
 
+  // Cálculo dos resumos
+  const totalProcessos = dadosProcessos.length;
+  const totalContratos = dadosContratos.length;
+  const processosConcluidos = dadosProcessos.filter((p) => p.status === 'Concluído').length;
+  const processosEmAndamento = dadosProcessos.filter((p) => p.status !== 'Concluído').length;
+
+  // Gráfico de evolução temporal dos processos (por dataAtual)
+  const processosPorDia: Record<string, number> = {};
+  dadosProcessos.forEach((p) => {
+    const data = p.dataAtual || p.dataInicio;
+    if (data) {
+      const dia = format(new Date(data), 'dd/MM/yyyy');
+      processosPorDia[dia] = (processosPorDia[dia] || 0) + 1;
+    }
+  });
+  const evolucaoData = Object.keys(processosPorDia)
+    .sort((a, b) => {
+      const da = parse(a, 'dd/MM/yyyy', new Date());
+      const db = parse(b, 'dd/MM/yyyy', new Date());
+      return da.getTime() - db.getTime();
+    })
+    .map((dia) => ({ name: dia, value: processosPorDia[dia] }));
+
+  // Gráfico de pizza: distribuição por secretaria
+  const processosPorSecretaria: Record<string, number> = {};
+  dadosProcessos.forEach((p) => {
+    if (p.secretaria) {
+      processosPorSecretaria[p.secretaria] = (processosPorSecretaria[p.secretaria] || 0) + 1;
+    }
+  });
+  const pieData = Object.entries(processosPorSecretaria).map(([name, value]) => ({ name, value }));
+
   return (
     <div className="p-6">
+      <ResumoDashboard
+        totalProcessos={totalProcessos}
+        totalContratos={totalContratos}
+        processosConcluidos={processosConcluidos}
+        processosEmAndamento={processosEmAndamento}
+      />
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Relatório de Processos - {periodo}</h1>
         <Select value={periodo} onValueChange={setPeriodo}>
@@ -160,14 +200,12 @@ export default function RelatoriosDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle>Evolução Temporal dos Processos</CardTitle>
-                <CardDescription>Últimos 30 dias</CardDescription>
+                <CardDescription>Por dia</CardDescription>
               </CardHeader>
               <CardContent>
                 <LineChart
-                  data={[
-                    { name: 'Processos', data: [30, 40, 35, 50, 49, 60, 70, 91, 125] }
-                  ]}
-                  categories={['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set']}
+                  data={evolucaoData}
+                  categories={evolucaoData.map((d) => d.name)}
                 />
               </CardContent>
             </Card>
@@ -179,12 +217,7 @@ export default function RelatoriosDashboard() {
               </CardHeader>
               <CardContent>
                 <PieChart
-                  data={[
-                    { name: 'Secretaria A', value: 400 },
-                    { name: 'Secretaria B', value: 300 },
-                    { name: 'Secretaria C', value: 300 },
-                    { name: 'Secretaria D', value: 200 }
-                  ]}
+                  data={pieData}
                 />
               </CardContent>
             </Card>

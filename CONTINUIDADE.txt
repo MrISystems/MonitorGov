@@ -1,3 +1,30 @@
+# Orientações do Projeto MonitorGov
+
+- Ferramenta moderna, responsiva (mobile first), com frontend em React + shadcn/ui.
+- Visual moderno, similar às principais ferramentas de gestão do mercado.
+- Utilizar animações Lottie para feedbacks e carregamentos.
+- Gráficos interativos e bonitos (ex: Recharts, Victory, Chart.js).
+- Gerar gráficos específicos para processos de compras e para contratos.
+- As abas/dias do banco de dados (arquivos CSV) são referentes aos processos.
+- A aba/arquivo de contratos é separada e deve ser tratada de forma independente dos processos.
+- Urgência máxima no desenvolvimento e nas respostas.
+- Resolver lentidão nas análises e dar sequência rápida.
+
+## Progresso do Projeto (atualizado)
+
+- Processos (API): 100%
+- Contratos (API): 100%
+- Estrutura base: 100%
+- Layout moderno: 100%
+- Dashboard: 0%
+- Gráficos: 0%
+- Lottie/feedbacks: 0% (parado, não será implementado)
+- Diretrizes salvas: 100%
+
+**Total geral do projeto:** 71%
+
+Sempre consultar este arquivo antes de responder ou implementar novas funcionalidades.
+
 uando quiser continuar, basta rodar:
 
 cd "C:\Users\marco\Documents\fintrack-pro"
