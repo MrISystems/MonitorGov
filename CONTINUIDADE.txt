@@ -1,0 +1,9 @@
+uando quiser continuar, basta rodar:
+
+cd "C:\Users\marco\Documents\fintrack-pro"
+npm run dev
+
+
+E acessar http://localhost:3000 para ver e continuar as melhorias.
+Se precisar de um resumo do que foi feito, ou quiser retomar de um ponto específico, é só pedir!
+Tudo está pronto para c

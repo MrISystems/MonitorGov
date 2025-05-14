@@ -1,11 +1,6 @@
-     import Suggestions from "@/features/Suggestions";
-     import Portfolio from "@/features/portfolio";
+"use client";
+import RelatoriosDashboard from "@/components/RelatoriosDashboard";
 
-     export default function Home() {
-       return (
-         <main>
-           <Suggestions />
-           <Portfolio />
-         </main>
-       );
-     }
+export default function Home() {
+  return <RelatoriosDashboard />;
+}
