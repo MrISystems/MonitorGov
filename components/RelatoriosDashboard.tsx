@@ -164,7 +164,7 @@ export function RelatoriosDashboard() {
               </CardHeader>
               <CardContent>
                 <LineChart
-                  data={[
+                  series={[
                     { name: 'Processos', data: [30, 40, 35, 50, 49, 60, 70, 91, 125] }
                   ]}
                   categories={['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set']}

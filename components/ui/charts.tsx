@@ -22,7 +22,7 @@ interface LineChartData {
 }
 
 interface LineChartProps {
-  data: LineChartData[];
+  series: LineChartData[];
   categories: string[];
 }
 
@@ -33,10 +33,10 @@ interface PieChartProps {
   }>;
 }
 
-export function LineChart({ data, categories }: LineChartProps) {
+export function LineChart({ series, categories }: LineChartProps) {
   const chartData = categories.map((category, index) => ({
     name: category,
-    value: data[0].data[index]
+    value: series[0].data[index]
   }));
 
   return (
@@ -57,10 +57,10 @@ export function LineChart({ data, categories }: LineChartProps) {
   );
 }
 
-export function BarChart({ data, categories }: LineChartProps) {
+export function BarChart({ series, categories }: LineChartProps) {
   const chartData = categories.map((category, index) => ({
     name: category,
-    value: data[0].data[index]
+    value: series[0].data[index]
   }));
 
   return (
