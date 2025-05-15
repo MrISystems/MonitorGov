@@ -16,7 +16,7 @@ import {
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
-interface ChartProps {
+interface CustomChartProps {
   data: Array<{
     name: string;
     data: number[];
@@ -31,7 +31,7 @@ interface PieChartProps {
   }>;
 }
 
-export function LineChart({ data, categories }: ChartProps) {
+export function LineChart({ data, categories }: CustomChartProps) {
   const chartData = categories.map((category, index) => ({
     name: category,
     value: data[0].data[index]
@@ -55,7 +55,7 @@ export function LineChart({ data, categories }: ChartProps) {
   );
 }
 
-export function BarChart({ data, categories }: ChartProps) {
+export function BarChart({ data, categories }: CustomChartProps) {
   const chartData = categories.map((category, index) => ({
     name: category,
     value: data[0].data[index]
