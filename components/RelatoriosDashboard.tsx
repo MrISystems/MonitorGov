@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SuperLineChart, PieChart } from "@/components/ui/charts2";
+import { LineChart, PieChart } from "@/components/ui/charts";
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -163,9 +163,19 @@ export function RelatoriosDashboard() {
                 <CardDescription>Últimos 30 dias</CardDescription>
               </CardHeader>
               <CardContent>
-                <SuperLineChart
-                  series={[{ name: 'Processos', data: [30, 40, 35, 50, 49, 60, 70, 91, 125] }]}
-                  categories={['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set']}
+                <LineChart
+                  data={[
+                    { name: 'Jan', value: 30 },
+                    { name: 'Fev', value: 40 },
+                    { name: 'Mar', value: 35 },
+                    { name: 'Abr', value: 50 },
+                    { name: 'Mai', value: 49 },
+                    { name: 'Jun', value: 60 },
+                    { name: 'Jul', value: 70 },
+                    { name: 'Ago', value: 91 },
+                    { name: 'Set', value: 125 }
+                  ]}
+                  categories={['Processos']}
                 />
               </CardContent>
             </Card>

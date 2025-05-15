@@ -1,10 +1,7 @@
-"use client";
-
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css';
-import { Providers } from '@/lib/providers'
-import { ThemeProvider } from '@/components/theme-provider'
+import './globals.css'
+import { RootProviders } from '@/components/providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,22 +13,15 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Providers>
-            {children}
-          </Providers>
-        </ThemeProvider>
+        <RootProviders>
+          {children}
+        </RootProviders>
       </body>
     </html>
-  );
+  )
 } 

@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SuperLineChart, PieChart } from "@/components/ui/charts2";
+import { LineChart, PieChart } from "@/components/ui/charts";
 import { format, parse } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import ResumoDashboard from './ResumoDashboard';
@@ -112,19 +112,13 @@ ContratosStatusCard.displayName = 'ContratosStatusCard';
 
 // Componente de evolução dos processos
 const EvolucaoProcessosCard = memo(({ data }: { data: Array<{ name: string; value: number }> }) => {
-  const series = [{
-    name: 'Processos',
-    data: data.map(item => item.value)
-  }];
-  const categories = data.map(item => item.name);
-
   return (
     <Card className="col-span-2">
       <CardHeader className="text-center">
         <CardTitle>Evolução dos Processos</CardTitle>
       </CardHeader>
       <CardContent>
-        <SuperLineChart series={series} categories={categories} />
+        <LineChart data={data} categories={['Processos']} />
       </CardContent>
     </Card>
   );
