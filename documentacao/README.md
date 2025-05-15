@@ -24,6 +24,7 @@ O arquivo `diagnostico_contexto.txt` contém a análise inicial do contexto e ne
 ## Estrutura da Documentação
 
 ### 1. Funcionalidades
+
 - `funcionalidades/`
   - `dashboard.md` - Detalhes do dashboard e visualizações
   - `processos.md` - Funcionalidades relacionadas aos processos
@@ -32,6 +33,7 @@ O arquivo `diagnostico_contexto.txt` contém a análise inicial do contexto e ne
   - `diretrizes.md` - Sistema de diretrizes e alertas
 
 ### 2. Segurança
+
 - `seguranca/`
   - `arquitetura.md` - Arquitetura de segurança do sistema
   - `autenticacao.md` - Sistema de autenticação e autorização
@@ -39,6 +41,7 @@ O arquivo `diagnostico_contexto.txt` contém a análise inicial do contexto e ne
   - `compliance.md` - Conformidade com normas e regulamentações
 
 ### 3. Infraestrutura
+
 - `infraestrutura/`
   - `hospedagem.md` - Detalhes da infraestrutura na Vercel
   - `performance.md` - Métricas de performance e otimizações
@@ -46,26 +49,30 @@ O arquivo `diagnostico_contexto.txt` contém a análise inicial do contexto e ne
   - `monitoramento.md` - Sistema de monitoramento e logs
 
 ### 4. Apresentação
+
 - `apresentacao/`
   - `slides.md` - Estrutura dos slides da apresentação
   - `demo.md` - Roteiro da demonstração ao vivo
   - `faq.md` - Perguntas frequentes e respostas
 
 ### 5. Manuais
+
 - `manuais/`
   - `usuario.md` - Manual do usuário
   - `administrador.md` - Manual do administrador
   - `tecnico.md` - Documentação técnica
 
 ## Como Contribuir
+
 1. Cada nova funcionalidade implementada deve ser documentada
 2. Atualizar os arquivos relevantes quando houver mudanças
 3. Manter a documentação sempre atualizada
 4. Incluir screenshots e exemplos quando relevante
 
 ## Status da Documentação
+
 - [ ] Funcionalidades
 - [ ] Segurança
 - [ ] Infraestrutura
 - [ ] Apresentação
-- [ ] Manuais 
+- [ ] Manuais

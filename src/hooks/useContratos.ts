@@ -32,7 +32,7 @@ export function useContratosInfinite() {
     queryKey: ['contratos'],
     queryFn: ({ pageParam }) => fetchContratos(pageParam),
     initialPageParam: undefined as string | undefined,
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    getNextPageParam: lastPage => lastPage.nextCursor,
     staleTime: 1000 * 60 * 5, // 5 minutos
   });
 }
@@ -40,11 +40,11 @@ export function useContratosInfinite() {
 // Mantendo o hook original para compatibilidade
 export function useContratos(filters: ContratosFilters = {}) {
   const { page = 1, pageSize = 20, ...rest } = filters;
-  
+
   return useInfiniteQuery({
     queryKey: ['contratos', filters],
     queryFn: ({ pageParam = page }) => fetchContratos({ ...filters, pageParam }),
-    getNextPageParam: (lastPage) => {
+    getNextPageParam: lastPage => {
       const totalPages = Math.ceil(lastPage.total / lastPage.pageSize);
       return lastPage.page < totalPages ? lastPage.page + 1 : undefined;
     },
@@ -52,4 +52,4 @@ export function useContratos(filters: ContratosFilters = {}) {
   });
 }
 
-export type { Contrato, ContratosResponse, ContratosFilters }; 
+export type { Contrato, ContratosResponse, ContratosFilters };

@@ -1,11 +1,11 @@
-"use client";
-import { useTheme } from "next-themes";
-import { useEffect, useState, memo, useCallback } from "react";
-import { Moon, Sun } from "lucide-react";
+'use client';
+import { useTheme } from 'next-themes';
+import { useEffect, useState, memo, useCallback } from 'react';
+import { Moon, Sun } from 'lucide-react';
 
 // Componente de ícone do tema
 const ThemeIcon = memo(({ theme }: { theme: string | undefined }) => {
-  if (theme === "dark") {
+  if (theme === 'dark') {
     return <Moon className="w-4 h-4" />;
   }
   return <Sun className="w-4 h-4" />;
@@ -22,7 +22,7 @@ export const ThemeToggle = memo(() => {
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   }, [theme, setTheme]);
 
   if (!mounted) {
@@ -48,4 +48,4 @@ export const ThemeToggle = memo(() => {
     </button>
   );
 });
-ThemeToggle.displayName = 'ThemeToggle'; 
+ThemeToggle.displayName = 'ThemeToggle';

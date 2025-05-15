@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { LineChart, PieChart } from "@/components/ui/charts";
+} from '@/components/ui/select';
+import { LineChart, PieChart } from '@/components/ui/charts';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -71,7 +65,7 @@ export function RelatoriosDashboard() {
       metricas.tempoMedioParecer += processo.etapas.parecerJuridico;
       metricas.tempoMedioAjustes += processo.etapas.ajustesEdital;
       metricas.tempoMedioFinanceiro += processo.etapas.analiseFinanceira;
-      
+
       if (processo.status === 'Concluído') {
         metricas.processosConcluidos++;
       } else {
@@ -150,7 +144,8 @@ export function RelatoriosDashboard() {
               <CardContent>
                 <p className="text-3xl font-bold">{metricas?.totalProcessos}</p>
                 <p className="text-sm text-muted-foreground">
-                  {metricas?.processosConcluidos} concluídos / {metricas?.processosEmAndamento} em andamento
+                  {metricas?.processosConcluidos} concluídos / {metricas?.processosEmAndamento} em
+                  andamento
                 </p>
               </CardContent>
             </Card>
@@ -173,9 +168,10 @@ export function RelatoriosDashboard() {
                     { name: 'Jun', value: 60 },
                     { name: 'Jul', value: 70 },
                     { name: 'Ago', value: 91 },
-                    { name: 'Set', value: 125 }
+                    { name: 'Set', value: 125 },
                   ]}
-                  categories={['Processos']}
+                  xKey="name"
+                  yKey="value"
                 />
               </CardContent>
             </Card>
@@ -191,7 +187,7 @@ export function RelatoriosDashboard() {
                     { name: 'Secretaria A', value: 400 },
                     { name: 'Secretaria B', value: 300 },
                     { name: 'Secretaria C', value: 300 },
-                    { name: 'Secretaria D', value: 200 }
+                    { name: 'Secretaria D', value: 200 },
                   ]}
                 />
               </CardContent>
@@ -201,4 +197,4 @@ export function RelatoriosDashboard() {
       )}
     </div>
   );
-} 
+}

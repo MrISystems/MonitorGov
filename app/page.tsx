@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import RelatoriosDashboard from '@/components/RelatoriosDashboard';
+import RelatoriosDashboard from '../src/components/RelatoriosDashboard';
 
 export default function Home() {
   return (
@@ -9,4 +9,4 @@ export default function Home() {
       <RelatoriosDashboard />
     </main>
   );
-} 
+}

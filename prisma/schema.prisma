@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../data/contratos.db"
+}
+
+model Contrato {
+  id          String   @id @default(uuid())
+  numero      String
+  objeto      String
+  valor       Float
+  dataInicio  DateTime
+  dataFim     DateTime
+  fornecedor  String
+  status      String
+  responsavel String?
+  local       String?
+  observacao  String?
+  createdAt   DateTime @default(now())
+
+  @@index([status])
+  @@index([fornecedor])
+  @@index([numero])
+} 

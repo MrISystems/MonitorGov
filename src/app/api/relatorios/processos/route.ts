@@ -4,14 +4,14 @@ import path from 'path';
 import { parse } from 'csv-parse/sync';
 import { format, parse as parseDate, differenceInDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { 
-  validateAndSanitize, 
-  processoSchema, 
+import {
+  validateAndSanitize,
+  processoSchema,
   contratoSchema,
   validateQueryParams,
   rateLimiter,
   validateOrigin,
-  validateCsrfToken
+  validateCsrfToken,
 } from '@/lib/security';
 import { z } from 'zod';
 // import { zlib } from 'zlib';
@@ -50,7 +50,7 @@ const calcularMetricasEtapas = (record: any) => {
 
   if (entradaCLMP && saidaCLMP) {
     const diasCLMP = calcularDiasEntre(entradaCLMP, saidaCLMP);
-    
+
     // Distribuição dos dias baseada no status
     if (status.includes('jurídico') || status.includes('saj')) {
       parecerJuridico = diasCLMP;
@@ -67,25 +67,29 @@ const calcularMetricasEtapas = (record: any) => {
     parecerJuridico,
     ajustesEdital,
     analiseFinanceira,
-    outros
+    outros,
   };
 };
 
 // Mapeamento dos campos do CSV para o formato do sistema
 const mapearProcesso = (record: any) => {
   const etapas = calcularMetricasEtapas(record);
-  
+
   return {
     id: record.PC || '',
     objeto: record.OBJETO || '',
     secretaria: record.PASTA || '',
     status: record.STATUS || '',
-    dataInicio: record['ENTRADA  NA CLMP'] ? format(parseDate(record['ENTRADA  NA CLMP'], 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd') : '',
-    dataAtual: record.DATA ? format(parseDate(record.DATA, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd') : '',
+    dataInicio: record['ENTRADA  NA CLMP']
+      ? format(parseDate(record['ENTRADA  NA CLMP'], 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd')
+      : '',
+    dataAtual: record.DATA
+      ? format(parseDate(record.DATA, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd')
+      : '',
     etapas,
     responsavel: record.RESPONSÁVEL || '',
     local: record.LOCAL || '',
-    observacao: record.OBSERVAÇÃO || ''
+    observacao: record.OBSERVAÇÃO || '',
   };
 };
 
@@ -106,13 +110,17 @@ const mapearContrato = (record: any) => {
     numero: record['N° CONTRATO'] || '',
     objeto: record.OBJETO || '',
     valor,
-    dataInicio: record['ENTRADA  NA CLMP'] ? format(parseDate(record['ENTRADA  NA CLMP'], 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd') : '',
-    dataFim: record.VENCIMENTO ? format(parseDate(record.VENCIMENTO, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd') : '',
+    dataInicio: record['ENTRADA  NA CLMP']
+      ? format(parseDate(record['ENTRADA  NA CLMP'], 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd')
+      : '',
+    dataFim: record.VENCIMENTO
+      ? format(parseDate(record.VENCIMENTO, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd')
+      : '',
     fornecedor: record.CONTRATADA || '',
     status: record.STATUS || '',
     responsavel: record.RESPONSÁVEL || '',
     local: record.LOCAL || '',
-    observacao: record.OBSERVAÇÃO || ''
+    observacao: record.OBSERVAÇÃO || '',
   };
 };
 
@@ -121,12 +129,12 @@ const validarDados = (dados: any[]) => {
   return dados.filter(item => {
     // Remove registros sem ID ou objeto
     if (!item.id || !item.objeto) return false;
-    
+
     // Remove registros com datas inválidas
     if (item.dataInicio && isNaN(new Date(item.dataInicio).getTime())) return false;
     if (item.dataAtual && isNaN(new Date(item.dataAtual).getTime())) return false;
     if (item.dataFim && isNaN(new Date(item.dataFim).getTime())) return false;
-    
+
     return true;
   });
 };
@@ -206,25 +214,23 @@ export async function GET(request: Request) {
           }
         };
 
-        filteredData.processos = filteredData.processos.filter(
-          (p: any) => filterDate(p.dataAtual)
-        );
+        filteredData.processos = filteredData.processos.filter((p: any) => filterDate(p.dataAtual));
       }
 
       // Recalcula métricas com dados filtrados
       filteredData.metricas = {
         totalProcessos: filteredData.processos.length,
         totalContratos: filteredData.contratos.length,
-        processosConcluidos: filteredData.processos.filter(
-          (p: any) => p.status.toLowerCase().includes('concluído')
+        processosConcluidos: filteredData.processos.filter((p: any) =>
+          p.status.toLowerCase().includes('concluído')
         ).length,
         processosEmAndamento: filteredData.processos.filter(
           (p: any) => !p.status.toLowerCase().includes('concluído')
         ).length,
         valorTotalContratos: filteredData.contratos.reduce(
-          (sum: number, c: any) => sum + (c.valor || 0), 
+          (sum: number, c: any) => sum + (c.valor || 0),
           0
-        )
+        ),
       };
 
       return NextResponse.json(filteredData, {
@@ -248,35 +254,37 @@ export async function GET(request: Request) {
     let contratos: any[] = [];
 
     // Processar arquivos em paralelo
-    await Promise.all(files.map(async (file) => {
-      try {
-        const filePath = path.join(dataDir, file);
-        const content = await fs.promises.readFile(filePath, 'utf-8');
-        const records = parse(content, {
-          columns: true,
-          skip_empty_lines: true,
-          delimiter: ',',
-          trim: true,
-          skipRecordsWithError: true
-        });
-        
-        if (file.toLowerCase().includes('contrato')) {
-          contratos = contratos.concat(
-            records.map((record: any) => 
-              validateAndSanitize(mapearContrato(record), contratoSchema)
-            )
-          );
-        } else {
-          processos = processos.concat(
-            records.map((record: any) => 
-              validateAndSanitize(mapearProcesso(record), processoSchema)
-            )
-          );
+    await Promise.all(
+      files.map(async file => {
+        try {
+          const filePath = path.join(dataDir, file);
+          const content = await fs.promises.readFile(filePath, 'utf-8');
+          const records = parse(content, {
+            columns: true,
+            skip_empty_lines: true,
+            delimiter: ',',
+            trim: true,
+            skipRecordsWithError: true,
+          });
+
+          if (file.toLowerCase().includes('contrato')) {
+            contratos = contratos.concat(
+              records.map((record: any) =>
+                validateAndSanitize(mapearContrato(record), contratoSchema)
+              )
+            );
+          } else {
+            processos = processos.concat(
+              records.map((record: any) =>
+                validateAndSanitize(mapearProcesso(record), processoSchema)
+              )
+            );
+          }
+        } catch (error) {
+          console.error(`Erro ao processar arquivo ${file}:`, error);
         }
-      } catch (error) {
-        console.error(`Erro ao processar arquivo ${file}:`, error);
-      }
-    }));
+      })
+    );
 
     // Validar e limpar os dados
     processos = validarDados(processos);
@@ -286,18 +294,20 @@ export async function GET(request: Request) {
     processos.sort((a, b) => new Date(b.dataAtual).getTime() - new Date(a.dataAtual).getTime());
     contratos.sort((a, b) => new Date(b.dataInicio).getTime() - new Date(a.dataInicio).getTime());
 
-    const data = { 
-      processos, 
+    const data = {
+      processos,
       contratos,
       metricas: {
         totalProcessos: processos.length,
         totalContratos: contratos.length,
-        processosConcluidos: processos.filter(p => p.status.toLowerCase().includes('concluído')).length,
-        processosEmAndamento: processos.filter(p => !p.status.toLowerCase().includes('concluído')).length,
-        valorTotalContratos: contratos.reduce((sum, c) => sum + (c.valor || 0), 0)
-      }
+        processosConcluidos: processos.filter(p => p.status.toLowerCase().includes('concluído'))
+          .length,
+        processosEmAndamento: processos.filter(p => !p.status.toLowerCase().includes('concluído'))
+          .length,
+        valorTotalContratos: contratos.reduce((sum, c) => sum + (c.valor || 0), 0),
+      },
     };
-    
+
     // Atualizar cache
     cache = {
       data,
@@ -311,19 +321,21 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error('Erro ao processar dados:', error);
-    
+
     // Não expõe detalhes do erro em produção
     const isProd = process.env.NODE_ENV === 'production';
-    const errorMessage = isProd 
-      ? 'Erro ao processar dados' 
-      : error instanceof Error ? error.message : 'Erro desconhecido';
+    const errorMessage = isProd
+      ? 'Erro ao processar dados'
+      : error instanceof Error
+        ? error.message
+        : 'Erro desconhecido';
 
     return NextResponse.json(
-      { 
+      {
         error: errorMessage,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       },
       { status: 500 }
     );
   }
-} 
+}

@@ -20,22 +20,26 @@ Sistema de monitoramento e gestão de processos governamentais, contratos e obra
 ## 🔧 Instalação
 
 1. Clone o repositório:
+
 ```bash
 git clone https://github.com/seu-usuario/monitorgov.git
 cd monitorgov
 ```
 
 2. Instale as dependências:
+
 ```bash
 npm install
 ```
 
 3. Copie o arquivo de ambiente de exemplo:
+
 ```bash
 cp .env.example .env.local
 ```
 
 4. Inicie o servidor de desenvolvimento:
+
 ```bash
 npm run dev
 ```

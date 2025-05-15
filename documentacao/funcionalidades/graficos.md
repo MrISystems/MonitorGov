@@ -1,11 +1,13 @@
 # Sistema de Gráficos - MonitorGov
 
 ## Visão Geral
+
 O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâmicas para análise de dados de processos e contratos, utilizando tecnologias modernas como Recharts e Chart.js.
 
 ## Tipos de Gráficos
 
 ### 1. Gráficos de Processos
+
 - Evolução temporal
   - Linha temporal
   - Área acumulada
@@ -23,6 +25,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
   - Scatter plot
 
 ### 2. Gráficos de Contratos
+
 - Valores
   - Linha temporal
   - Barras
@@ -42,6 +45,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Interatividade
 
 ### 1. Recursos
+
 - Zoom
 - Pan
 - Tooltip
@@ -51,6 +55,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - Exportação
 
 ### 2. Personalização
+
 - Cores
 - Estilos
 - Animações
@@ -61,6 +66,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Animações
 
 ### 1. Tipos
+
 - Entrada
 - Transição
 - Hover
@@ -69,6 +75,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - Error
 
 ### 2. Configuração
+
 - Duração
 - Timing
 - Easing
@@ -79,6 +86,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Responsividade
 
 ### 1. Adaptação
+
 - Tamanho automático
 - Reflow
 - Breakpoints
@@ -87,6 +95,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - Gestos
 
 ### 2. Performance
+
 - Renderização otimizada
 - Lazy loading
 - Cache
@@ -97,6 +106,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Exportação
 
 ### 1. Formatos
+
 - PNG
 - JPG
 - SVG
@@ -105,6 +115,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - JSON
 
 ### 2. Configurações
+
 - Resolução
 - Tamanho
 - Qualidade
@@ -115,6 +126,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Integração
 
 ### 1. APIs
+
 - Dados em tempo real
 - WebSocket
 - REST
@@ -123,6 +135,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - Fallback
 
 ### 2. Eventos
+
 - Click
 - Hover
 - Zoom
@@ -133,6 +146,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Bibliotecas
 
 ### 1. Recharts
+
 - Componentes
 - Customização
 - Performance
@@ -140,6 +154,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - Exemplos
 
 ### 2. Chart.js
+
 - Tipos de gráficos
 - Plugins
 - Animações
@@ -149,6 +164,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Acessibilidade
 
 ### 1. Recursos
+
 - ARIA labels
 - Keyboard navigation
 - Screen readers
@@ -157,6 +173,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - Color blind
 
 ### 2. Conformidade
+
 - WCAG 2.1
 - Section 508
 - ADA
@@ -166,6 +183,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Performance
 
 ### 1. Otimizações
+
 - Virtualização
 - Lazy loading
 - Memoização
@@ -174,6 +192,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - Web Workers
 
 ### 2. Monitoramento
+
 - FPS
 - Memory
 - CPU
@@ -184,6 +203,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Mobile
 
 ### 1. Interface
+
 - Touch events
 - Gestures
 - Responsive
@@ -192,6 +212,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - Sync
 
 ### 2. Performance
+
 - Lightweight
 - Fast load
 - Smooth
@@ -202,6 +223,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Recursos Avançados
 
 ### 1. Análise
+
 - Correlação
 - Regressão
 - Clustering
@@ -210,6 +232,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - ML
 
 ### 2. Visualização
+
 - 3D
 - Mapas
 - Networks
@@ -220,6 +243,7 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 ## Manutenção
 
 ### 1. Updates
+
 - Versões
 - Changelog
 - Breaking
@@ -228,9 +252,10 @@ O sistema de gráficos do MonitorGov oferece visualizações interativas e dinâ
 - Docs
 
 ### 2. Support
+
 - Issues
 - Bugs
 - Features
 - Security
 - Performance
-- Help 
+- Help

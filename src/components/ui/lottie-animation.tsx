@@ -105,4 +105,4 @@ export function WelcomeAnimation() {
       width={400}
     />
   );
-} 
+}

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React, { memo } from "react";
-import { ThemeToggle } from "./ThemeToggle";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import React, { memo } from 'react';
+import { ThemeToggle } from './ThemeToggle';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 // Componente de link do menu
 interface NavLinkProps {
@@ -14,7 +14,7 @@ interface NavLinkProps {
   highlight?: boolean;
 }
 
-const NavLink = memo(({ href, children, className = "", highlight = false }: NavLinkProps) => {
+const NavLink = memo(({ href, children, className = '', highlight = false }: NavLinkProps) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 
@@ -22,11 +22,11 @@ const NavLink = memo(({ href, children, className = "", highlight = false }: Nav
     <Link
       href={href}
       className={cn(
-        "block p-2 rounded transition-colors",
+        'block p-2 rounded transition-colors',
         highlight
-          ? "bg-primary/10 text-primary hover:bg-primary/20 dark:hover:bg-primary/30"
-          : "hover:bg-neutral-200 dark:hover:bg-neutral-700",
-        isActive && !highlight && "bg-neutral-200 dark:bg-neutral-700",
+          ? 'bg-primary/10 text-primary hover:bg-primary/20 dark:hover:bg-primary/30'
+          : 'hover:bg-neutral-200 dark:hover:bg-neutral-700',
+        isActive && !highlight && 'bg-neutral-200 dark:bg-neutral-700',
         className
       )}
     >
@@ -80,4 +80,4 @@ const Layout = memo(({ children }: { children: React.ReactNode }) => {
 });
 Layout.displayName = 'Layout';
 
-export default Layout; 
+export default Layout;

@@ -1,11 +1,13 @@
 # Módulo de Contratos - MonitorGov
 
 ## Visão Geral
+
 O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de todos os contratos governamentais, com foco em monitoramento, análise e conformidade.
 
 ## Funcionalidades Principais
 
 ### 1. Gestão de Contratos
+
 - Cadastro completo
 - Atualização automática
 - Histórico de alterações
@@ -14,6 +16,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Valores e prazos
 
 ### 2. Listagem e Filtros
+
 - Listagem completa
 - Filtros avançados
   - Por período
@@ -26,6 +29,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Visualização em cards/lista
 
 ### 3. Análises e Gráficos
+
 - Evolução temporal
 - Distribuição por setor
 - Análise de fornecedores
@@ -36,6 +40,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 ## Sistema de Alertas
 
 ### 1. Tipos de Alertas
+
 - Vencimento próximo
 - Renovação necessária
 - Valores atípicos
@@ -44,6 +49,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Status alterados
 
 ### 2. Configuração
+
 - Limites personalizados
 - Regras de negócio
 - Frequência de verificação
@@ -51,6 +57,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Prioridades
 
 ### 3. Notificações
+
 - Email
 - Push notifications
 - Dashboard
@@ -60,6 +67,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 ## Análises Específicas
 
 ### 1. Fornecedores
+
 - Histórico de contratos
 - Performance
 - Conformidade
@@ -67,6 +75,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Tempo de relacionamento
 
 ### 2. Valores
+
 - Evolução temporal
 - Comparativos
 - Distribuição
@@ -74,6 +83,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Projeções
 
 ### 3. Prazos
+
 - Vencimentos
 - Renovações
 - Prorrogações
@@ -83,6 +93,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 ## Diretrizes e Conformidade
 
 ### 1. Diretrizes
+
 - Configuração de regras
 - Validação automática
 - Histórico de conformidade
@@ -90,6 +101,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Ajustes e atualizações
 
 ### 2. Conformidade
+
 - Verificação automática
 - Relatórios de conformidade
 - Histórico de auditoria
@@ -99,6 +111,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 ## Exportação e Relatórios
 
 ### 1. Formatos
+
 - PDF
 - Excel
 - CSV
@@ -106,6 +119,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - XML
 
 ### 2. Tipos de Relatórios
+
 - Relatórios padrão
 - Relatórios personalizados
 - Dashboards
@@ -113,6 +127,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Comparativos
 
 ### 3. Agendamento
+
 - Exportação automática
 - Periodicidade
 - Destinatários
@@ -122,6 +137,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 ## Integração
 
 ### 1. APIs
+
 - Endpoints disponíveis
 - Autenticação
 - Documentação
@@ -129,6 +145,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Limites
 
 ### 2. Webhooks
+
 - Eventos disponíveis
 - Configuração
 - Payload
@@ -138,6 +155,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 ## Performance
 
 ### 1. Otimizações
+
 - Cache
 - Indexação
 - Queries otimizadas
@@ -145,6 +163,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Compressão
 
 ### 2. Monitoramento
+
 - Métricas
 - Logs
 - Alertas técnicos
@@ -154,6 +173,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 ## Segurança
 
 ### 1. Acesso
+
 - Controle granular
 - Perfis de usuário
 - Auditoria
@@ -161,6 +181,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Bloqueios
 
 ### 2. Dados
+
 - Criptografia
 - Backup
 - Integridade
@@ -170,6 +191,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 ## Mobile
 
 ### 1. Interface
+
 - Design responsivo
 - Gestos touch
 - Offline mode
@@ -177,6 +199,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Notificações
 
 ### 2. Funcionalidades
+
 - Visualização
 - Filtros
 - Alertas
@@ -186,6 +209,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 ## Recursos Avançados
 
 ### 1. Análise Preditiva
+
 - Previsão de valores
 - Identificação de tendências
 - Detecção de anomalias
@@ -193,6 +217,7 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Cenários
 
 ### 2. Business Intelligence
+
 - Dashboards avançados
 - Análises complexas
 - Relatórios customizados
@@ -200,8 +225,9 @@ O módulo de contratos do MonitorGov oferece uma gestão completa e eficiente de
 - Integração com ferramentas
 
 ### 3. Automação
+
 - Processos automáticos
 - Notificações programadas
 - Atualizações em lote
 - Validações automáticas
-- Relatórios periódicos 
+- Relatórios periódicos

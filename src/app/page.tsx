@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import { InfiniteContratosList } from '@/components/InfiniteContratosList';
-import Layout from "@/components/Layout";
-import RelatoriosDashboard from "@/components/RelatoriosDashboard";
+import Layout from '@/components/Layout';
+import RelatoriosDashboard from '@/components/RelatoriosDashboard';
 import { Suspense } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Dashboard - MonitorGov',
+  title: 'MonitorGov 10',
   description: 'Painel principal do MonitorGov com indicadores e relatórios em tempo real',
 };
 

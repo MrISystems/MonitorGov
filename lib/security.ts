@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { sanitizeHtml } from 'sanitize-html';
+import sanitizeHtml from 'sanitize-html';
 
 // Schema de validação para contratos
 export const contratoSchema = z.object({
@@ -65,7 +65,7 @@ export function validateQueryParams(params: URLSearchParams, schema: z.ZodSchema
   params.forEach((value, key) => {
     queryObj[key] = sanitizeString(value);
   });
-  
+
   return schema.parse(queryObj);
 }
 
@@ -83,22 +83,22 @@ export class RateLimiter {
   isRateLimited(ip: string): boolean {
     const now = Date.now();
     const windowStart = now - this.windowMs;
-    
+
     // Obtém ou inicializa o array de timestamps para o IP
     const timestamps = this.requests.get(ip) || [];
-    
+
     // Remove timestamps antigos
     const recentTimestamps = timestamps.filter(time => time > windowStart);
-    
+
     // Verifica se excedeu o limite
     if (recentTimestamps.length >= this.maxRequests) {
       return true;
     }
-    
+
     // Adiciona novo timestamp
     recentTimestamps.push(now);
     this.requests.set(ip, recentTimestamps);
-    
+
     return false;
   }
 
@@ -106,7 +106,7 @@ export class RateLimiter {
   cleanup() {
     const now = Date.now();
     const windowStart = now - this.windowMs;
-    
+
     for (const [ip, timestamps] of this.requests.entries()) {
       const recentTimestamps = timestamps.filter(time => time > windowStart);
       if (recentTimestamps.length === 0) {
@@ -127,11 +127,11 @@ setInterval(() => rateLimiter.cleanup(), 60000);
 // Função para validar origem da requisição
 export function validateOrigin(origin: string | null): boolean {
   if (!origin) return false;
-  
+
   const allowedOrigins = [
     process.env.NEXT_PUBLIC_APP_URL,
     'http://localhost:3000',
-    'https://monitorgov.vercel.app'
+    'https://monitorgov.vercel.app',
   ].filter(Boolean);
 
   return allowedOrigins.some(allowed => origin.startsWith(allowed));
@@ -150,4 +150,4 @@ export async function generateHash(data: string): Promise<string> {
 export async function validateCsrfToken(token: string, secret: string): Promise<boolean> {
   const expectedToken = await generateHash(secret + process.env.NEXTAUTH_SECRET);
   return token === expectedToken;
-} 
+}

@@ -1,21 +1,15 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState, useMemo, useCallback, Suspense, memo } from 'react';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { LineChart, PieChart } from "@/components/ui/charts";
+} from '@/components/ui/select';
+import { LineChart, PieChart } from '@/components/ui/charts';
 import { format, parse } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import ResumoDashboard from './ResumoDashboard';
@@ -89,9 +83,7 @@ const ValorTotalCard = memo(({ valorTotal }: { valorTotal: number }) => (
       <CardTitle>Valor Total dos Contratos</CardTitle>
     </CardHeader>
     <CardContent className="flex flex-col items-center justify-center">
-      <p className="text-3xl font-bold">
-        {formatarMoeda(valorTotal)}
-      </p>
+      <p className="text-3xl font-bold">{formatarMoeda(valorTotal)}</p>
     </CardContent>
   </Card>
 ));
@@ -126,16 +118,18 @@ const EvolucaoProcessosCard = memo(({ data }: { data: Array<{ name: string; valu
 EvolucaoProcessosCard.displayName = 'EvolucaoProcessosCard';
 
 // Componente de processos por secretaria
-const ProcessosSecretariaCard = memo(({ data }: { data: Array<{ name: string; value: number }> }) => (
-  <Card>
-    <CardHeader className="text-center">
-      <CardTitle>Processos por Secretaria</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <PieChart data={data} />
-    </CardContent>
-  </Card>
-));
+const ProcessosSecretariaCard = memo(
+  ({ data }: { data: Array<{ name: string; value: number }> }) => (
+    <Card>
+      <CardHeader className="text-center">
+        <CardTitle>Processos por Secretaria</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <PieChart data={data} />
+      </CardContent>
+    </Card>
+  )
+);
 ProcessosSecretariaCard.displayName = 'ProcessosSecretariaCard';
 
 // Componente de último processo
@@ -163,7 +157,7 @@ const UltimosProcessosCard = memo(({ processos }: { processos: ProcessoData[] })
     </CardHeader>
     <CardContent>
       <div className="space-y-4">
-        {processos.slice(0, 5).map((processo) => (
+        {processos.slice(0, 5).map(processo => (
           <UltimoProcessoItem key={processo.id} processo={processo} />
         ))}
       </div>
@@ -210,41 +204,36 @@ const useDashboardData = () => {
     dadosContratos,
     metricas,
     loading,
-    carregarDados
+    carregarDados,
   };
 };
 
 // Componente principal
 export default function RelatoriosDashboard() {
-  const {
-    dadosProcessos,
-    dadosContratos,
-    metricas,
-    loading
-  } = useDashboardData();
+  const { dadosProcessos, dadosContratos, metricas, loading } = useDashboardData();
 
   const evolucaoData = useMemo(() => {
     const processosPorDia: Record<string, number> = {};
-    dadosProcessos.forEach((p) => {
+    dadosProcessos.forEach(p => {
       const data = p.dataAtual || p.dataInicio;
       if (data) {
         const dia = format(new Date(data), 'dd/MM/yyyy');
         processosPorDia[dia] = (processosPorDia[dia] || 0) + 1;
       }
     });
-    
+
     return Object.keys(processosPorDia)
       .sort((a, b) => {
         const da = parse(a, 'dd/MM/yyyy', new Date());
         const db = parse(b, 'dd/MM/yyyy', new Date());
         return da.getTime() - db.getTime();
       })
-      .map((dia) => ({ name: dia, value: processosPorDia[dia] }));
+      .map(dia => ({ name: dia, value: processosPorDia[dia] }));
   }, [dadosProcessos]);
 
   const pieData = useMemo(() => {
     const processosPorSecretaria: Record<string, number> = {};
-    dadosProcessos.forEach((p) => {
+    dadosProcessos.forEach(p => {
       if (p.secretaria) {
         processosPorSecretaria[p.secretaria] = (processosPorSecretaria[p.secretaria] || 0) + 1;
       }
@@ -254,7 +243,7 @@ export default function RelatoriosDashboard() {
 
   const contratosPorStatus = useMemo(() => {
     const statusCount: Record<string, number> = {};
-    dadosContratos.forEach((c) => {
+    dadosContratos.forEach(c => {
       if (c.status) {
         statusCount[c.status] = (statusCount[c.status] || 0) + 1;
       }

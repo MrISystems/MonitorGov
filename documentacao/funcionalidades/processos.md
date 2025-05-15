@@ -1,11 +1,13 @@
 # Módulo de Processos - MonitorGov
 
 ## Visão Geral
+
 O módulo de processos do MonitorGov permite o monitoramento completo e eficiente de todos os processos de compras e licitações, oferecendo análises detalhadas e alertas em tempo real.
 
 ## Funcionalidades Principais
 
 ### 1. Listagem e Filtros
+
 - Listagem completa de processos
 - Filtros avançados
   - Por período
@@ -18,6 +20,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - Visualização em cards/lista
 
 ### 2. Detalhamento
+
 - Informações completas do processo
 - Histórico de alterações
 - Documentos anexos
@@ -26,6 +29,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - Valores e prazos
 
 ### 3. Análises e Gráficos
+
 - Evolução temporal
 - Distribuição por setor
 - Análise de valores
@@ -36,6 +40,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 ## Sistema de Alertas
 
 ### 1. Tipos de Alertas
+
 - Prazos críticos
 - Valores atípicos
 - Irregularidades
@@ -43,6 +48,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - Status alterados
 
 ### 2. Configuração
+
 - Limites personalizados
 - Regras de negócio
 - Frequência de verificação
@@ -50,6 +56,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - Prioridades
 
 ### 3. Notificações
+
 - Email
 - Push notifications
 - Dashboard
@@ -59,6 +66,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 ## Diretrizes e Conformidade
 
 ### 1. Diretrizes
+
 - Configuração de regras
 - Validação automática
 - Histórico de conformidade
@@ -66,6 +74,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - Ajustes e atualizações
 
 ### 2. Conformidade
+
 - Verificação automática
 - Relatórios de conformidade
 - Histórico de auditoria
@@ -75,6 +84,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 ## Exportação e Relatórios
 
 ### 1. Formatos
+
 - PDF
 - Excel
 - CSV
@@ -82,6 +92,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - XML
 
 ### 2. Tipos de Relatórios
+
 - Relatórios padrão
 - Relatórios personalizados
 - Dashboards
@@ -89,6 +100,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - Comparativos
 
 ### 3. Agendamento
+
 - Exportação automática
 - Periodicidade
 - Destinatários
@@ -98,6 +110,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 ## Integração
 
 ### 1. APIs
+
 - Endpoints disponíveis
 - Autenticação
 - Documentação
@@ -105,6 +118,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - Limites
 
 ### 2. Webhooks
+
 - Eventos disponíveis
 - Configuração
 - Payload
@@ -114,6 +128,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 ## Performance
 
 ### 1. Otimizações
+
 - Cache
 - Indexação
 - Queries otimizadas
@@ -121,6 +136,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - Compressão
 
 ### 2. Monitoramento
+
 - Métricas
 - Logs
 - Alertas técnicos
@@ -130,6 +146,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 ## Segurança
 
 ### 1. Acesso
+
 - Controle granular
 - Perfis de usuário
 - Auditoria
@@ -137,6 +154,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - Bloqueios
 
 ### 2. Dados
+
 - Criptografia
 - Backup
 - Integridade
@@ -146,6 +164,7 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 ## Mobile
 
 ### 1. Interface
+
 - Design responsivo
 - Gestos touch
 - Offline mode
@@ -153,8 +172,9 @@ O módulo de processos do MonitorGov permite o monitoramento completo e eficient
 - Notificações
 
 ### 2. Funcionalidades
+
 - Visualização
 - Filtros
 - Alertas
 - Exportação
-- Configurações 
+- Configurações

@@ -1,45 +1,53 @@
 # Dashboard MonitorGov
 
 ## Visão Geral
+
 O dashboard é a interface principal do sistema, fornecendo uma visão consolidada de todos os processos, contratos e obras em andamento.
 
 ## Funcionalidades Principais
 
 ### 1. Visão Geral
+
 - Resumo de indicadores principais
 - Alertas e notificações
 - Status dos processos críticos
 - Gráficos de acompanhamento
 
 ### 2. Indicadores
+
 - Total de processos ativos
 - Valor total em contratos
 - Status das obras
 - Prazos críticos
 
 ### 3. Gráficos e Visualizações
+
 - Evolução temporal dos processos
 - Distribuição de contratos por área
 - Status das obras por região
 - Análise de tendências
 
 ### 4. Alertas e Notificações
+
 - Prazos próximos do vencimento
 - Processos com status crítico
 - Contratos com pendências
 - Obras com atrasos
 
 ## Acesso e Permissões
+
 - Administradores: Acesso completo
 - Gestores: Visualização e edição limitada
 - Usuários: Apenas visualização
 
 ## Atualizações
+
 - Dados atualizados em tempo real
 - Sincronização automática
 - Histórico de alterações
 
 ## Personalização
+
 - Widgets configuráveis
 - Filtros personalizados
 - Exportação de relatórios
@@ -48,6 +56,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 ## Componentes Principais
 
 ### 1. Indicadores em Tempo Real
+
 - Total de processos ativos
 - Valor total em contratos
 - Alertas pendentes
@@ -55,6 +64,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 - Status de conformidade
 
 ### 2. Gráficos Interativos
+
 - Evolução temporal de processos
 - Distribuição de contratos
 - Análise de tendências
@@ -62,6 +72,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 - Indicadores de performance
 
 ### 3. Filtros e Personalização
+
 - Filtros por período
 - Filtros por setor
 - Filtros por status
@@ -69,6 +80,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 - Filtros personalizados
 
 ### 4. Widgets Configuráveis
+
 - Gráficos personalizáveis
 - Listas de alertas
 - Indicadores-chave
@@ -78,6 +90,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 ## Funcionalidades Avançadas
 
 ### 1. Análises
+
 - Análise preditiva
 - Comparativos históricos
 - Correlações entre dados
@@ -85,6 +98,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 - Relatórios automáticos
 
 ### 2. Exportação
+
 - Exportação em PDF
 - Exportação em Excel
 - Exportação em CSV
@@ -92,6 +106,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 - Agendamento de exportações
 
 ### 3. Alertas e Notificações
+
 - Alertas em tempo real
 - Notificações por email
 - Notificações push
@@ -101,6 +116,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 ## Responsividade
 
 ### 1. Desktop
+
 - Layout otimizado
 - Visualização expandida
 - Múltiplos gráficos
@@ -108,6 +124,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 - Exportação completa
 
 ### 2. Mobile
+
 - Interface adaptativa
 - Gestos touch
 - Visualização simplificada
@@ -117,6 +134,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 ## Personalização
 
 ### 1. Layout
+
 - Widgets arrastáveis
 - Tamanhos ajustáveis
 - Temas visuais
@@ -124,6 +142,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 - Favoritos
 
 ### 2. Preferências
+
 - Configuração de alertas
 - Filtros padrão
 - Exportações automáticas
@@ -133,6 +152,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 ## Integração
 
 ### 1. Módulos
+
 - Integração com processos
 - Integração com contratos
 - Integração com diretrizes
@@ -140,6 +160,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 - Integração com alertas
 
 ### 2. Exportação
+
 - APIs disponíveis
 - Webhooks
 - Integração com BI
@@ -149,6 +170,7 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 ## Performance
 
 ### 1. Otimizações
+
 - Cache inteligente
 - Lazy loading
 - Compressão de dados
@@ -156,8 +178,9 @@ O dashboard é a interface principal do sistema, fornecendo uma visão consolida
 - Queries otimizadas
 
 ### 2. Monitoramento
+
 - Métricas de uso
 - Performance em tempo real
 - Logs de acesso
 - Análise de comportamento
-- Relatórios de uso 
+- Relatórios de uso

@@ -1,6 +1,20 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { z } from 'zod';
+import { User } from 'next-auth';
+
+// Estendendo o tipo User para incluir role
+declare module 'next-auth' {
+  interface User {
+    role?: string;
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    role?: string;
+  }
+}
 
 // Schema de validação para credenciais
 const credentialsSchema = z.object({
@@ -44,14 +58,14 @@ const handler = NextAuth({
         try {
           // Valida as credenciais
           const validatedCredentials = credentialsSchema.parse(credentials);
-          
+
           // Verifica as credenciais
           const user = await validateCredentials(validatedCredentials);
-          
+
           if (user) {
             return user;
           }
-          
+
           return null;
         } catch (error) {
           console.error('Erro na autenticação:', error);
@@ -85,4 +99,4 @@ const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 });
 
-export { handler as GET, handler as POST }; 
+export { handler as GET, handler as POST };

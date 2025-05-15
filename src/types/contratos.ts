@@ -36,4 +36,4 @@ export interface ContratosFilters {
   pageSize?: number;
   sortBy?: keyof Contrato;
   sortOrder?: 'asc' | 'desc';
-} 
+}

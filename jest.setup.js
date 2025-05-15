@@ -1,9 +1,9 @@
 // Learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom'
-import { TextEncoder, TextDecoder } from 'util'
+import '@testing-library/jest-dom';
+import { TextEncoder, TextDecoder } from 'util';
 
-global.TextEncoder = TextEncoder
-global.TextDecoder = TextDecoder
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 
 // Mock do next/navigation
 jest.mock('next/navigation', () => ({
@@ -17,7 +17,7 @@ jest.mock('next/navigation', () => ({
   }),
   usePathname: () => '/',
   useSearchParams: () => new URLSearchParams(),
-}))
+}));
 
 // Mock do next-auth
 jest.mock('next-auth/react', () => ({
@@ -27,4 +27,4 @@ jest.mock('next-auth/react', () => ({
     data: null,
     status: 'unauthenticated',
   })),
-})) 
+}));

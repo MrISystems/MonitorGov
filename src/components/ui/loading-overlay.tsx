@@ -21,45 +21,52 @@ export function LoadingOverlay({ isLoading, message, className }: LoadingOverlay
     >
       <div className="flex flex-col items-center space-y-4">
         <LoadingAnimation />
-        {message && (
-          <p className="text-sm text-muted-foreground font-medium">
-            {message}
-          </p>
-        )}
+        {message && <p className="text-sm text-muted-foreground font-medium">{message}</p>}
       </div>
     </div>
   );
 }
 
 // Exemplo de uso em um componente de dados
-export function DataLoadingState({ isLoading, children }: { isLoading: boolean; children: React.ReactNode }) {
+export function DataLoadingState({
+  isLoading,
+  children,
+}: {
+  isLoading: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <div className="relative min-h-[200px]">
-      <LoadingOverlay
-        isLoading={isLoading}
-        message="Carregando dados..."
-      />
+      <LoadingOverlay isLoading={isLoading} message="Carregando dados..." />
       {children}
     </div>
   );
 }
 
 // Exemplo de uso em um formulário
-export function FormLoadingState({ isLoading, children }: { isLoading: boolean; children: React.ReactNode }) {
+export function FormLoadingState({
+  isLoading,
+  children,
+}: {
+  isLoading: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <div className="relative">
-      <LoadingOverlay
-        isLoading={isLoading}
-        message="Processando..."
-        className="bg-background/60"
-      />
+      <LoadingOverlay isLoading={isLoading} message="Processando..." className="bg-background/60" />
       {children}
     </div>
   );
 }
 
 // Exemplo de uso em uma tabela
-export function TableLoadingState({ isLoading, children }: { isLoading: boolean; children: React.ReactNode }) {
+export function TableLoadingState({
+  isLoading,
+  children,
+}: {
+  isLoading: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <div className="relative">
       <LoadingOverlay
@@ -70,4 +77,4 @@ export function TableLoadingState({ isLoading, children }: { isLoading: boolean;
       {children}
     </div>
   );
-} 
+}

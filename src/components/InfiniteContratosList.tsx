@@ -19,93 +19,91 @@ const StatusBadge = memo(({ status }: { status: string }) => {
   };
 
   return (
-    <span className={`text-xs px-2 py-1 rounded-full ${getStatusStyle(status)}`}>
-      {status}
-    </span>
+    <span className={`text-xs px-2 py-1 rounded-full ${getStatusStyle(status)}`}>{status}</span>
   );
 });
 StatusBadge.displayName = 'StatusBadge';
 
 // Componente de linha do contrato
-const ContratoRow = memo(({ contrato, style }: { contrato: Contrato; style: React.CSSProperties }) => {
-  return (
-    <div
-      style={{
-        ...style,
-        padding: '1rem',
-        borderBottom: '1px solid var(--border)',
-      }}
-      className="hover:bg-muted/50 transition-colors"
-    >
-      <div className="flex justify-between items-start">
-        <div className="flex-1">
-          <div className="flex items-center gap-2">
-            <h3 className="font-medium">{contrato.numero}</h3>
-            <StatusBadge status={contrato.status} />
+const ContratoRow = memo(
+  ({ contrato, style }: { contrato: Contrato; style: React.CSSProperties }) => {
+    return (
+      <div
+        style={{
+          ...style,
+          padding: '1rem',
+          borderBottom: '1px solid var(--border)',
+        }}
+        className="hover:bg-muted/50 transition-colors"
+      >
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <h3 className="font-medium">{contrato.numero}</h3>
+              <StatusBadge status={contrato.status} />
+            </div>
+            <p className="text-sm text-muted-foreground mt-1">{contrato.objeto}</p>
+            <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
+              <span>
+                Início: {format(new Date(contrato.dataInicio), 'dd/MM/yyyy', { locale: ptBR })}
+              </span>
+              <span>Fim: {format(new Date(contrato.dataFim), 'dd/MM/yyyy', { locale: ptBR })}</span>
+            </div>
           </div>
-          <p className="text-sm text-muted-foreground mt-1">
-            {contrato.objeto}
-          </p>
-          <div className="flex gap-4 mt-2 text-xs text-muted-foreground">
-            <span>Início: {format(new Date(contrato.dataInicio), 'dd/MM/yyyy', { locale: ptBR })}</span>
-            <span>Fim: {format(new Date(contrato.dataFim), 'dd/MM/yyyy', { locale: ptBR })}</span>
+          <div className="text-right ml-4">
+            <p className="font-medium">{formatarMoeda(contrato.valor)}</p>
+            <p className="text-sm text-muted-foreground">{contrato.fornecedor}</p>
+            {contrato.responsavel && (
+              <p className="text-xs text-muted-foreground mt-1">
+                Responsável: {contrato.responsavel}
+              </p>
+            )}
           </div>
-        </div>
-        <div className="text-right ml-4">
-          <p className="font-medium">
-            {formatarMoeda(contrato.valor)}
-          </p>
-          <p className="text-sm text-muted-foreground">
-            {contrato.fornecedor}
-          </p>
-          {contrato.responsavel && (
-            <p className="text-xs text-muted-foreground mt-1">
-              Responsável: {contrato.responsavel}
-            </p>
-          )}
         </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 ContratoRow.displayName = 'ContratoRow';
 
 // Componente de filtros
-const FiltrosContratos = memo(({ 
-  busca, 
-  setBusca, 
-  statusFiltro, 
-  setStatusFiltro 
-}: { 
-  busca: string;
-  setBusca: (value: string) => void;
-  statusFiltro: string;
-  setStatusFiltro: (value: string) => void;
-}) => {
-  return (
-    <div className="flex gap-2">
-      <input
-        type="text"
-        placeholder="Buscar por número ou objeto"
-        value={busca}
-        onChange={e => setBusca(e.target.value)}
-        className="border rounded px-2 py-1 text-sm bg-white dark:bg-neutral-900"
-      />
-      <select
-        value={statusFiltro}
-        onChange={e => setStatusFiltro(e.target.value)}
-        className="border rounded px-2 py-1 text-sm bg-white dark:bg-neutral-900"
-      >
-        <option value="">Todos os status</option>
-        <option value="Vigente">Vigente</option>
-        <option value="Encerrado">Encerrado</option>
-        <option value="Em renovação">Em renovação</option>
-        <option value="Em andamento">Em andamento</option>
-        <option value="Concluído">Concluído</option>
-      </select>
-    </div>
-  );
-});
+const FiltrosContratos = memo(
+  ({
+    busca,
+    setBusca,
+    statusFiltro,
+    setStatusFiltro,
+  }: {
+    busca: string;
+    setBusca: (value: string) => void;
+    statusFiltro: string;
+    setStatusFiltro: (value: string) => void;
+  }) => {
+    return (
+      <div className="flex gap-2">
+        <input
+          type="text"
+          placeholder="Buscar por número ou objeto"
+          value={busca}
+          onChange={e => setBusca(e.target.value)}
+          className="border rounded px-2 py-1 text-sm bg-white dark:bg-neutral-900"
+        />
+        <select
+          value={statusFiltro}
+          onChange={e => setStatusFiltro(e.target.value)}
+          className="border rounded px-2 py-1 text-sm bg-white dark:bg-neutral-900"
+        >
+          <option value="">Todos os status</option>
+          <option value="Vigente">Vigente</option>
+          <option value="Encerrado">Encerrado</option>
+          <option value="Em renovação">Em renovação</option>
+          <option value="Em andamento">Em andamento</option>
+          <option value="Concluído">Concluído</option>
+        </select>
+      </div>
+    );
+  }
+);
 FiltrosContratos.displayName = 'FiltrosContratos';
 
 // Componente principal
@@ -113,23 +111,19 @@ export function InfiniteContratosList() {
   const parentRef = useRef<HTMLDivElement>(null);
   const [statusFiltro, setStatusFiltro] = useState('');
   const [busca, setBusca] = useState('');
-  
-  const {
-    data,
-    isLoading,
-    isError,
-    isFetchingNextPage,
-    hasNextPage,
-    fetchNextPage,
-  } = useContratosInfinite();
+
+  const { data, isLoading, isError, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useContratosInfinite();
 
   // Combina todos os contratos de todas as páginas
   const allContratos = data?.pages.flatMap(page => page.data) ?? [];
 
   // Filtros aplicados localmente com useCallback
   const contratosFiltrados = useCallback(() => {
-    return allContratos.filter((contrato) => {
-      const statusOk = statusFiltro ? contrato.status.toLowerCase() === statusFiltro.toLowerCase() : true;
+    return allContratos.filter(contrato => {
+      const statusOk = statusFiltro
+        ? contrato.status.toLowerCase() === statusFiltro.toLowerCase()
+        : true;
       const buscaOk = busca
         ? contrato.numero.toLowerCase().includes(busca.toLowerCase()) ||
           contrato.objeto.toLowerCase().includes(busca.toLowerCase())
@@ -150,11 +144,7 @@ export function InfiniteContratosList() {
     const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
     if (!lastItem) return;
 
-    if (
-      lastItem.index >= contratosFiltrados.length - 1 &&
-      hasNextPage &&
-      !isFetchingNextPage
-    ) {
+    if (lastItem.index >= contratosFiltrados.length - 1 && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   }, [
@@ -193,11 +183,7 @@ export function InfiniteContratosList() {
             ))}
           </div>
         ) : (
-          <div
-            ref={parentRef}
-            className="h-[600px] overflow-auto"
-            style={{ contain: 'strict' }}
-          >
+          <div ref={parentRef} className="h-[600px] overflow-auto" style={{ contain: 'strict' }}>
             <div
               style={{
                 height: `${rowVirtualizer.getTotalSize()}px`,
@@ -205,9 +191,9 @@ export function InfiniteContratosList() {
                 position: 'relative',
               }}
             >
-              {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+              {rowVirtualizer.getVirtualItems().map(virtualRow => {
                 const contrato = contratosFiltrados[virtualRow.index];
-                
+
                 if (!contrato) {
                   return (
                     <div
@@ -248,4 +234,4 @@ export function InfiniteContratosList() {
       </div>
     </div>
   );
-} 
+}
