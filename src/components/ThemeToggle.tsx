@@ -15,10 +15,10 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2 rounded bg-neutral-800 text-white hover:bg-neutral-700 transition"
+      className="p-1 rounded bg-neutral-800 text-white hover:bg-neutral-700 transition text-xs min-w-[32px] min-h-[32px] flex items-center justify-center"
       aria-label="Alternar tema"
     >
-      {theme === "dark" ? "🌙 Modo Escuro" : "☀️ Modo Claro"}
+      {theme === "dark" ? "🌙" : "☀️"}
     </button>
   );
 } 
