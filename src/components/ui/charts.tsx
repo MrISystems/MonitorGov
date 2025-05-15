@@ -136,171 +136,100 @@ const CustomLegend = memo(({ payload }: LegendProps) => {
 });
 CustomLegend.displayName = 'CustomLegend';
 
-// Componente de gráfico de linha otimizado e acessível
-export const LineChart = memo(({ 
-  data, 
-  categories,
-  height = 300,
-  showLegend = true,
-}: { 
-  data: ChartData[]; 
-  categories: string[];
-  height?: number;
-  showLegend?: boolean;
-}) => {
-  const colors = useChartColors();
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
+interface ChartProps {
+  data: Array<{ name: string; value: number }>
+  categories?: string[]
+}
 
-  const formatYAxis = useCallback((value: number) => {
-    return value.toLocaleString('pt-BR');
-  }, []);
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8']
 
-  const gridColor = useMemo(() => 
-    isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-    [isDark]
-  );
-
-  const textColor = useMemo(() => 
-    isDark ? '#E5E7EB' : '#1F2937',
-    [isDark]
-  );
+export function LineChart({ data, categories = ['Valor'] }: ChartProps) {
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
 
   return (
-    <div 
-      role="img" 
-      aria-label="Gráfico de evolução temporal"
-      className="w-full"
-    >
-      <ResponsiveContainer width="100%" height={height}>
+    <div className="h-[300px] w-full">
+      <ResponsiveContainer width="100%" height="100%">
         <RechartsLineChart
           data={data}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          accessibilityLayer
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
         >
-          <CartesianGrid 
-            strokeDasharray="3 3" 
-            stroke={gridColor}
+          <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#374151' : '#e5e7eb'} />
+          <XAxis 
+            dataKey="name" 
+            stroke={isDark ? '#9ca3af' : '#4b5563'} 
+            tick={{ fill: isDark ? '#9ca3af' : '#4b5563' }}
           />
-          <XAxis
-            dataKey="name"
-            tick={{ fill: textColor }}
-            tickLine={{ stroke: textColor }}
-            tickFormatter={(value) => value}
-            aria-label="Datas"
-          />
-          <YAxis
-            tick={{ fill: textColor }}
-            tickLine={{ stroke: textColor }}
-            tickFormatter={formatYAxis}
-            aria-label="Valores"
+          <YAxis 
+            stroke={isDark ? '#9ca3af' : '#4b5563'} 
+            tick={{ fill: isDark ? '#9ca3af' : '#4b5563' }}
           />
           <Tooltip 
-            content={<CustomTooltip />}
-            cursor={{ 
-              stroke: textColor, 
-              strokeWidth: 1, 
-              strokeDasharray: '3 3' 
+            contentStyle={{ 
+              backgroundColor: isDark ? '#1f2937' : '#ffffff',
+              border: `1px solid ${isDark ? '#374151' : '#e5e7eb'}`,
+              borderRadius: '0.375rem',
+              color: isDark ? '#f3f4f6' : '#1f2937'
             }}
           />
-          {showLegend && <Legend content={<CustomLegend />} />}
           {categories.map((category, index) => (
             <Line
               key={category}
               type="monotone"
-              dataKey={category}
-              stroke={colors[index % colors.length].fill}
-              strokeWidth={2}
-              dot={{ 
-                r: 4, 
-                fill: colors[index % colors.length].fill,
-                stroke: colors[index % colors.length].stroke,
-                strokeWidth: 2
-              }}
-              activeDot={{ 
-                r: 8, 
-                fill: colors[index % colors.length].stroke,
-                stroke: colors[index % colors.length].fill,
-                strokeWidth: 2
-              }}
-              name={category}
+              dataKey="value"
+              stroke={COLORS[index % COLORS.length]}
+              activeDot={{ r: 8 }}
             />
           ))}
         </RechartsLineChart>
       </ResponsiveContainer>
     </div>
-  );
-});
+  )
+}
 
-// Componente de gráfico de pizza otimizado e acessível
-export const PieChart = memo(({ 
-  data,
-  height = 300,
-  showLegend = true,
-}: { 
-  data: ChartData[];
-  height?: number;
-  showLegend?: boolean;
-}) => {
-  const colors = useChartColors();
-  const total = useMemo(() => 
-    data.reduce((acc, item) => acc + item.value, 0),
-    [data]
-  );
-  
-  const formatLabel = useCallback(({ name, percent }: { name: string; percent: number }) => {
-    const value = (percent * 100).toFixed(0);
-    return `${name} (${value}%)`;
-  }, []);
+export function PieChart({ data }: ChartProps) {
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
 
   return (
-    <div 
-      role="img" 
-      aria-label="Gráfico de distribuição"
-      className="w-full"
-    >
-      <ResponsiveContainer width="100%" height={height}>
+    <div className="h-[300px] w-full">
+      <ResponsiveContainer width="100%" height="100%">
         <RechartsPieChart>
           <Pie
             data={data}
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={formatLabel}
+            label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
             outerRadius={80}
             fill="#8884d8"
             dataKey="value"
-            nameKey="name"
-            aria-label="Distribuição por categoria"
           >
             {data.map((entry, index) => (
               <Cell 
-                key={`cell-${index}`}
-                fill={colors[index % colors.length].fill}
-                stroke={colors[index % colors.length].stroke}
-                strokeWidth={2}
+                key={`cell-${index}`} 
+                fill={COLORS[index % COLORS.length]} 
               />
             ))}
           </Pie>
           <Tooltip 
-            content={<CustomTooltip />}
-            formatter={(value: number) => [
-              value.toLocaleString('pt-BR'),
-              `${((value / total) * 100).toFixed(1)}% do total`
-            ]}
+            contentStyle={{ 
+              backgroundColor: isDark ? '#1f2937' : '#ffffff',
+              border: `1px solid ${isDark ? '#374151' : '#e5e7eb'}`,
+              borderRadius: '0.375rem',
+              color: isDark ? '#f3f4f6' : '#1f2937'
+            }}
           />
-          {showLegend && (
-            <Legend 
-              content={<CustomLegend />}
-              layout="horizontal"
-              verticalAlign="bottom"
-            />
-          )}
         </RechartsPieChart>
       </ResponsiveContainer>
     </div>
-  );
-});
+  )
+}
 
 // Nomes dos componentes para debug
 LineChart.displayName = 'LineChart';
