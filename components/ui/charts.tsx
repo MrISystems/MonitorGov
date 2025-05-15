@@ -98,4 +98,6 @@ export function PieChart({ data }: PieChartProps) {
       </RechartsPieChart>
     </ResponsiveContainer>
   );
-} 
+}
+
+export { CustomLineChart, CustomBarChart, PieChart }; 
