@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 import React, { useEffect, useState, useMemo, useCallback, Suspense, memo } from 'react';
 import {
   Card,
@@ -6,19 +7,18 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "@/components/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
-import { LineChart, PieChart } from "./ui/charts";
+} from "@/components/ui/select";
+import { SuperLineChart, PieChart } from "@/components/ui/charts2";
 import { format, parse } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import ResumoDashboard from './ResumoDashboard';
-import dynamic from 'next/dynamic';
 import { formatarMoeda } from '@/lib/utils';
 
 // Tipos
@@ -66,17 +66,6 @@ interface ApiResponse {
   };
 }
 
-// Componentes de gráfico com lazy loading
-const LineChartComponent = dynamic(() => import('./ui/charts').then(mod => mod.LineChart), {
-  loading: () => <LoadingChart />,
-  ssr: false
-});
-
-const PieChartComponent = dynamic(() => import('./ui/charts').then(mod => mod.PieChart), {
-  loading: () => <LoadingChart />,
-  ssr: false
-});
-
 // Componentes de loading
 const LoadingChart = memo(() => (
   <div className="h-[200px] flex items-center justify-center bg-neutral-50 dark:bg-neutral-800 rounded animate-pulse">
@@ -122,16 +111,24 @@ const ContratosStatusCard = memo(({ data }: { data: Array<{ name: string; value:
 ContratosStatusCard.displayName = 'ContratosStatusCard';
 
 // Componente de evolução dos processos
-const EvolucaoProcessosCard = memo(({ data }: { data: Array<{ name: string; value: number }> }) => (
-  <Card className="col-span-2">
-    <CardHeader className="text-center">
-      <CardTitle>Evolução dos Processos</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <LineChart data={data} categories={['Processos']} />
-    </CardContent>
-  </Card>
-));
+const EvolucaoProcessosCard = memo(({ data }: { data: Array<{ name: string; value: number }> }) => {
+  const series = [{
+    name: 'Processos',
+    data: data.map(item => item.value)
+  }];
+  const categories = data.map(item => item.name);
+
+  return (
+    <Card className="col-span-2">
+      <CardHeader className="text-center">
+        <CardTitle>Evolução dos Processos</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <SuperLineChart series={series} categories={categories} />
+      </CardContent>
+    </Card>
+  );
+});
 EvolucaoProcessosCard.displayName = 'EvolucaoProcessosCard';
 
 // Componente de processos por secretaria
