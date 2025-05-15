@@ -4,6 +4,16 @@ import path from 'path';
 import { parse } from 'csv-parse/sync';
 import { format, parse as parseDate, differenceInDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { 
+  validateAndSanitize, 
+  processoSchema, 
+  contratoSchema,
+  validateQueryParams,
+  rateLimiter,
+  validateOrigin,
+  validateCsrfToken
+} from '@/lib/security';
+import { z } from 'zod';
 // import { zlib } from 'zlib';
 // import { promisify } from 'util';
 
@@ -121,11 +131,103 @@ const validarDados = (dados: any[]) => {
   });
 };
 
-export async function GET() {
+// Schema para parâmetros de consulta
+const querySchema = z.object({
+  periodo: z.enum(['hoje', 'semana', 'mes', 'todos']).optional(),
+  secretaria: z.string().optional(),
+  status: z.string().optional(),
+});
+
+export async function GET(request: Request) {
   try {
+    // Validação de origem - temporariamente desabilitada para desenvolvimento
+    // const origin = request.headers.get('origin');
+    // if (!validateOrigin(origin)) {
+    //   return new NextResponse(
+    //     JSON.stringify({ error: 'Origem não permitida' }),
+    //     { status: 403 }
+    //   );
+    // }
+
+    // Validação de CSRF - temporariamente desabilitada para desenvolvimento
+    // const csrfToken = request.headers.get('x-csrf-token');
+    // if (!csrfToken || !await validateCsrfToken(csrfToken, request.headers.get('x-request-id') || '')) {
+    //   return new NextResponse(
+    //     JSON.stringify({ error: 'Token CSRF inválido' }),
+    //     { status: 403 }
+    //   );
+    // }
+
+    // Rate limiting - mantido para evitar sobrecarga
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    if (rateLimiter.isRateLimited(ip)) {
+      return new NextResponse(
+        JSON.stringify({ error: 'Muitas requisições. Tente novamente mais tarde.' }),
+        { status: 429 }
+      );
+    }
+
+    // Validação de parâmetros de consulta
+    const { searchParams } = new URL(request.url);
+    const query = validateQueryParams(searchParams, querySchema);
+
     // Verificar cache
     if (cache && Date.now() - cache.timestamp < CACHE_DURATION) {
-      return NextResponse.json(cache.data, {
+      let filteredData = { ...cache.data };
+
+      // Aplica filtros se especificados
+      if (query.secretaria) {
+        filteredData.processos = filteredData.processos.filter(
+          (p: any) => p.secretaria.toLowerCase() === query.secretaria?.toLowerCase()
+        );
+      }
+
+      if (query.status) {
+        filteredData.processos = filteredData.processos.filter(
+          (p: any) => p.status.toLowerCase() === query.status?.toLowerCase()
+        );
+      }
+
+      if (query.periodo) {
+        const now = new Date();
+        const filterDate = (date: string) => {
+          const d = new Date(date);
+          switch (query.periodo) {
+            case 'hoje':
+              return d.toDateString() === now.toDateString();
+            case 'semana':
+              const weekAgo = new Date(now.setDate(now.getDate() - 7));
+              return d >= weekAgo;
+            case 'mes':
+              const monthAgo = new Date(now.setMonth(now.getMonth() - 1));
+              return d >= monthAgo;
+            default:
+              return true;
+          }
+        };
+
+        filteredData.processos = filteredData.processos.filter(
+          (p: any) => filterDate(p.dataAtual)
+        );
+      }
+
+      // Recalcula métricas com dados filtrados
+      filteredData.metricas = {
+        totalProcessos: filteredData.processos.length,
+        totalContratos: filteredData.contratos.length,
+        processosConcluidos: filteredData.processos.filter(
+          (p: any) => p.status.toLowerCase().includes('concluído')
+        ).length,
+        processosEmAndamento: filteredData.processos.filter(
+          (p: any) => !p.status.toLowerCase().includes('concluído')
+        ).length,
+        valorTotalContratos: filteredData.contratos.reduce(
+          (sum: number, c: any) => sum + (c.valor || 0), 
+          0
+        )
+      };
+
+      return NextResponse.json(filteredData, {
         headers: {
           'Cache-Control': 'public, max-age=300',
         },
@@ -159,9 +261,17 @@ export async function GET() {
         });
         
         if (file.toLowerCase().includes('contrato')) {
-          contratos = contratos.concat(records.map(mapearContrato));
+          contratos = contratos.concat(
+            records.map((record: any) => 
+              validateAndSanitize(mapearContrato(record), contratoSchema)
+            )
+          );
         } else {
-          processos = processos.concat(records.map(mapearProcesso));
+          processos = processos.concat(
+            records.map((record: any) => 
+              validateAndSanitize(mapearProcesso(record), processoSchema)
+            )
+          );
         }
       } catch (error) {
         console.error(`Erro ao processar arquivo ${file}:`, error);
@@ -201,10 +311,16 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Erro ao processar dados:', error);
+    
+    // Não expõe detalhes do erro em produção
+    const isProd = process.env.NODE_ENV === 'production';
+    const errorMessage = isProd 
+      ? 'Erro ao processar dados' 
+      : error instanceof Error ? error.message : 'Erro desconhecido';
+
     return NextResponse.json(
       { 
-        error: 'Erro ao ler os dados dos processos/contratos', 
-        details: error.message,
+        error: errorMessage,
         timestamp: new Date().toISOString()
       },
       { status: 500 }

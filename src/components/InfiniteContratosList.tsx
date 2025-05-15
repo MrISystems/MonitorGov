@@ -3,18 +3,31 @@
 import { useContratosInfinite } from '@/hooks/useContratos';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatarMoeda } from '@/lib/utils';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, memo, useCallback } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import type { Contrato } from '@/types/contratos';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
-interface ContratoRowProps {
-  contrato: Contrato;
-  style: React.CSSProperties;
-}
+// Componente de status do contrato
+const StatusBadge = memo(({ status }: { status: string }) => {
+  const getStatusStyle = (status: string) => {
+    const lowerStatus = status.toLowerCase();
+    if (lowerStatus.includes('concluído')) return 'bg-green-100 text-green-800';
+    if (lowerStatus.includes('andamento')) return 'bg-blue-100 text-blue-800';
+    return 'bg-yellow-100 text-yellow-800';
+  };
 
-function ContratoRow({ contrato, style }: ContratoRowProps) {
+  return (
+    <span className={`text-xs px-2 py-1 rounded-full ${getStatusStyle(status)}`}>
+      {status}
+    </span>
+  );
+});
+StatusBadge.displayName = 'StatusBadge';
+
+// Componente de linha do contrato
+const ContratoRow = memo(({ contrato, style }: { contrato: Contrato; style: React.CSSProperties }) => {
   return (
     <div
       style={{
@@ -28,13 +41,7 @@ function ContratoRow({ contrato, style }: ContratoRowProps) {
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <h3 className="font-medium">{contrato.numero}</h3>
-            <span className={`text-xs px-2 py-1 rounded-full ${
-              contrato.status.toLowerCase().includes('concluído') ? 'bg-green-100 text-green-800' :
-              contrato.status.toLowerCase().includes('andamento') ? 'bg-blue-100 text-blue-800' :
-              'bg-yellow-100 text-yellow-800'
-            }`}>
-              {contrato.status}
-            </span>
+            <StatusBadge status={contrato.status} />
           </div>
           <p className="text-sm text-muted-foreground mt-1">
             {contrato.objeto}
@@ -60,12 +67,53 @@ function ContratoRow({ contrato, style }: ContratoRowProps) {
       </div>
     </div>
   );
-}
+});
+ContratoRow.displayName = 'ContratoRow';
 
+// Componente de filtros
+const FiltrosContratos = memo(({ 
+  busca, 
+  setBusca, 
+  statusFiltro, 
+  setStatusFiltro 
+}: { 
+  busca: string;
+  setBusca: (value: string) => void;
+  statusFiltro: string;
+  setStatusFiltro: (value: string) => void;
+}) => {
+  return (
+    <div className="flex gap-2">
+      <input
+        type="text"
+        placeholder="Buscar por número ou objeto"
+        value={busca}
+        onChange={e => setBusca(e.target.value)}
+        className="border rounded px-2 py-1 text-sm bg-white dark:bg-neutral-900"
+      />
+      <select
+        value={statusFiltro}
+        onChange={e => setStatusFiltro(e.target.value)}
+        className="border rounded px-2 py-1 text-sm bg-white dark:bg-neutral-900"
+      >
+        <option value="">Todos os status</option>
+        <option value="Vigente">Vigente</option>
+        <option value="Encerrado">Encerrado</option>
+        <option value="Em renovação">Em renovação</option>
+        <option value="Em andamento">Em andamento</option>
+        <option value="Concluído">Concluído</option>
+      </select>
+    </div>
+  );
+});
+FiltrosContratos.displayName = 'FiltrosContratos';
+
+// Componente principal
 export function InfiniteContratosList() {
   const parentRef = useRef<HTMLDivElement>(null);
   const [statusFiltro, setStatusFiltro] = useState('');
   const [busca, setBusca] = useState('');
+  
   const {
     data,
     isLoading,
@@ -78,20 +126,22 @@ export function InfiniteContratosList() {
   // Combina todos os contratos de todas as páginas
   const allContratos = data?.pages.flatMap(page => page.data) ?? [];
 
-  // Filtros aplicados localmente
-  const contratosFiltrados = allContratos.filter((contrato) => {
-    const statusOk = statusFiltro ? contrato.status.toLowerCase() === statusFiltro.toLowerCase() : true;
-    const buscaOk = busca
-      ? contrato.numero.toLowerCase().includes(busca.toLowerCase()) ||
-        contrato.objeto.toLowerCase().includes(busca.toLowerCase())
-      : true;
-    return statusOk && buscaOk;
-  });
+  // Filtros aplicados localmente com useCallback
+  const contratosFiltrados = useCallback(() => {
+    return allContratos.filter((contrato) => {
+      const statusOk = statusFiltro ? contrato.status.toLowerCase() === statusFiltro.toLowerCase() : true;
+      const buscaOk = busca
+        ? contrato.numero.toLowerCase().includes(busca.toLowerCase()) ||
+          contrato.objeto.toLowerCase().includes(busca.toLowerCase())
+        : true;
+      return statusOk && buscaOk;
+    });
+  }, [allContratos, statusFiltro, busca])();
 
   const rowVirtualizer = useVirtualizer({
-    count: contratosFiltrados.length + (hasNextPage ? 1 : 0), // +1 para o loading
+    count: contratosFiltrados.length + (hasNextPage ? 1 : 0),
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 100, // Aumentado para acomodar mais informações
+    estimateSize: () => 100,
     overscan: 5,
   });
 
@@ -127,27 +177,12 @@ export function InfiniteContratosList() {
     <div className="space-y-4">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-2">
         <h2 className="text-2xl font-bold">Contratos</h2>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            placeholder="Buscar por número ou objeto"
-            value={busca}
-            onChange={e => setBusca(e.target.value)}
-            className="border rounded px-2 py-1 text-sm bg-white dark:bg-neutral-900"
-          />
-          <select
-            value={statusFiltro}
-            onChange={e => setStatusFiltro(e.target.value)}
-            className="border rounded px-2 py-1 text-sm bg-white dark:bg-neutral-900"
-          >
-            <option value="">Todos os status</option>
-            <option value="Vigente">Vigente</option>
-            <option value="Encerrado">Encerrado</option>
-            <option value="Em renovação">Em renovação</option>
-            <option value="Em andamento">Em andamento</option>
-            <option value="Concluído">Concluído</option>
-          </select>
-        </div>
+        <FiltrosContratos
+          busca={busca}
+          setBusca={setBusca}
+          statusFiltro={statusFiltro}
+          setStatusFiltro={setStatusFiltro}
+        />
       </div>
 
       <div className="rounded-md border">
@@ -161,9 +196,7 @@ export function InfiniteContratosList() {
           <div
             ref={parentRef}
             className="h-[600px] overflow-auto"
-            style={{
-              contain: 'strict',
-            }}
+            style={{ contain: 'strict' }}
           >
             <div
               style={{
@@ -175,7 +208,6 @@ export function InfiniteContratosList() {
               {rowVirtualizer.getVirtualItems().map((virtualRow) => {
                 const contrato = contratosFiltrados[virtualRow.index];
                 
-                // Renderiza o loading no final da lista
                 if (!contrato) {
                   return (
                     <div

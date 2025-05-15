@@ -3,12 +3,15 @@ const nextConfig = {
   output: 'standalone',
   poweredByHeader: false,
   reactStrictMode: true,
-  swcMinify: true,
   // Configuração para garantir que todas as rotas sejam geradas
   trailingSlash: false,
-  // Configuração para lidar com rotas dinâmicas
+  // Configurações otimizadas
+  images: {
+    domains: ['localhost'],
+    formats: ['image/avif', 'image/webp'],
+  },
   experimental: {
-    appDir: true,
+    optimizeCss: true
   }
 }
 

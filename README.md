@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MonitorGov
 
-## Getting Started
+Sistema de monitoramento e gestão de processos governamentais, contratos e obras públicas.
 
-First, run the development server:
+## 🚀 Tecnologias
 
+- Next.js 14
+- React 18
+- TypeScript
+- Tailwind CSS
+- React Query
+- Framer Motion
+- Next Themes
+
+## 📋 Pré-requisitos
+
+- Node.js 18.17 ou superior
+- npm 9.0 ou superior
+
+## 🔧 Instalação
+
+1. Clone o repositório:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/seu-usuario/monitorgov.git
+cd monitorgov
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instale as dependências:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Copie o arquivo de ambiente de exemplo:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Inicie o servidor de desenvolvimento:
+```bash
+npm run dev
+```
 
-## Learn More
+## 🛠️ Scripts Disponíveis
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run dev` - Inicia o servidor de desenvolvimento
+- `npm run build` - Cria a build de produção
+- `npm run start` - Inicia o servidor de produção
+- `npm run lint` - Executa o linter
+- `npm run format` - Formata o código com Prettier
+- `npm run type-check` - Verifica os tipos TypeScript
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Estrutura do Projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+monitorgov/
+├── src/
+│   ├── app/              # Rotas e páginas da aplicação
+│   ├── components/       # Componentes reutilizáveis
+│   ├── lib/             # Utilitários e configurações
+│   └── styles/          # Estilos globais
+├── public/              # Arquivos estáticos
+└── ...
+```
 
-## Deploy on Vercel
+## 🤝 Contribuindo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 📧 Contato
+
+MonitorGov - [contato@monitorgov.com.br](mailto:contato@monitorgov.com.br)
