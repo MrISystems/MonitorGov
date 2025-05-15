@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LineChart, BarChart, PieChart } from "@/components/ui/charts";
+import { LineChart, PieChart } from "@/components/ui/charts";
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
