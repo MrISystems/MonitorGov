@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LineChart, PieChart } from "@/components/ui/charts";
+import { CustomLineChart, PieChart } from "@/components/ui/charts";
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -163,7 +163,7 @@ export function RelatoriosDashboard() {
                 <CardDescription>Últimos 30 dias</CardDescription>
               </CardHeader>
               <CardContent>
-                <LineChart
+                <CustomLineChart
                   series={[
                     { name: 'Processos', data: [30, 40, 35, 50, 49, 60, 70, 91, 125] }
                   ]}

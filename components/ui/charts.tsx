@@ -33,7 +33,7 @@ interface PieChartProps {
   }>;
 }
 
-export function LineChart({ series, categories }: LineChartProps) {
+export function CustomLineChart({ series, categories }: LineChartProps) {
   const chartData = categories.map((category, index) => ({
     name: category,
     value: series[0].data[index]
@@ -57,7 +57,7 @@ export function LineChart({ series, categories }: LineChartProps) {
   );
 }
 
-export function BarChart({ series, categories }: LineChartProps) {
+export function CustomBarChart({ series, categories }: LineChartProps) {
   const chartData = categories.map((category, index) => ({
     name: category,
     value: series[0].data[index]
